@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import { useNavigate } from "react-router";
-import {ToastContainer,toast} from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 import BaseUrl from "../config/BaseUrl";
 
@@ -19,6 +20,7 @@ const Login =()=>{
     }
 
     const handleSubmit =(e)=>{
+        e.preventDefault();
         const {email,password} =userlogin
          if(!email || !password){
              toast.error('All field required',{
@@ -30,12 +32,13 @@ const Login =()=>{
          axios.post(`${BaseUrl.url}/login`,userlogin)
          .then((res)=>{
              window.localStorage.setItem("token",res.data.token)
-             toast.success('Login Sucessfully',{
-                position: toast.POSITION.TOP_CENTER,
-                autoClose:1500,
-                theme: "colored"
-             })
+             
              navigae('/dashboad')
+             toast.success('login is sucessfully',{
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose:50000,
+                theme: "colored"
+               })
          })
     }
     
@@ -44,18 +47,20 @@ const Login =()=>{
 
     return(
         <>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container-fluid">
+            <a className="navbar-brand" href="#"></a>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav ms-md-auto gap-2 ">
+            <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul className="navbar-nav ms-md-auto gap-2 ">
                     
-                    <li class="nav-item ">
-                        <button type="button" class="btn btn-success" aria-current="page" onClick={datahandler} >Home</button>
+                    <li className="nav-item ">
+                        
+                        <button type="button" className="btn btn-success" aria-current="page" onClick={datahandler} >Home</button>
                     </li>
             
                 </ul>
@@ -78,9 +83,11 @@ const Login =()=>{
         <input className="form-check-input" type="checkbox" name="remember" /> Remember me
       </label>
     </div>
-    <div className="button" />
+    <div className="button text-center">
     <button type="submit" className="btn btn-primary">Login</button>
+  </div>
   </form>
+  <ToastContainer />
 </div>
 
         </>
