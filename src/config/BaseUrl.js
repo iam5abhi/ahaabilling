@@ -1,1 +1,1 @@
-export default  {url:"http://localhost:7700"}
+export default  {url:"https://resturant-client.herokuapp.com"}
