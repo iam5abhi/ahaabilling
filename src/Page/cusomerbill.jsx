@@ -146,7 +146,7 @@ const CusuomerBill = () => {
                   {
                      billingdata.foods.map((data,id)=>{
                         return(
-                            <tr>
+                            <tr key={data._id}>
                             <td className="center">{id+1}</td>
                             <td className="left strong">{data.menuName}</td>
                             <td className="center">{data.quantity}</td>
