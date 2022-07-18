@@ -3,7 +3,7 @@ import axios from "axios";
 import BaseUrl from "../config/BaseUrl";
 import DataTable,{ createTheme } from 'react-data-table-component';
 import { useNavigate } from "react-router-dom";
-
+import {ToastContainer,toast} from 'react-toastify'
 
 
 
@@ -56,6 +56,26 @@ const BillingReport =()=>{
     }
 
 
+    const deleteHandler =(id)=>{
+      const filteredArray = reportdata.filter((data) => {
+        return data._id != id;
+      });
+      setreportdata(filteredArray)
+      axios.delete(`${BaseUrl.url}/api/v2/delete/report/${id}`)
+      .then(res => {
+        toast.success('delete data Sucessfully')
+      })
+      .catch(err => {
+           toast.error(err.message)
+      })
+    }
+
+
+    const printhandler =(id)=>{
+       navigate(`/bill/${id}`)
+    }
+
+
     const logout =()=>{
         window.localStorage.removeItem('token')
         navigate('/login')
@@ -94,7 +114,13 @@ const BillingReport =()=>{
 
         {
             name:'Action',
-            cell:(row)=><button className="btn btn-sm btn-danger" onClick={()=>{billingreports(row._id)}}>Delete</button>
+            cell:(row)=><button className="btn btn-sm btn-danger" onClick={()=>{deleteHandler(row._id)}}>Delete</button>
+        },
+
+
+        {
+          name:'Action',
+          cell:(row)=><button className="btn btn-sm btn-success" onClick={()=>{printhandler(row._id)}}>Print</button>
         }
 
 
@@ -187,6 +213,7 @@ const BillingReport =()=>{
                 
              />
        </div>
+       <ToastContainer/>
       </>
   )
 
