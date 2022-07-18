@@ -5,12 +5,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ListItems from './listitems';
 import { useNavigate } from 'react-router';
+import Navigation from '../component/Navbar';
 
 
 
 
 const AddItem = () => {
-    const navigate =useNavigate()
+  const navigate =useNavigate()
     const [menuItem,setmenuItem] =useState({MenuItemId:'',MenuName:'',Category:'',foodCategory:'',Rate:'',ManualCode:'',serviceTax:''})
     const [data,setdata] =useState('')
 
@@ -20,7 +21,8 @@ const AddItem = () => {
         setmenuItem((previousdata)=>({...previousdata,[name]:value}))
     }
 
-    const AddnewItem =()=>{
+    const AddnewItem =(e)=>{
+      e.preventDefault();
         axios
             .post(`${BaseUrl.url}/api/v1/addfood`,menuItem)
             .then(res=>{
@@ -29,8 +31,8 @@ const AddItem = () => {
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: 8000
                    })
-                   window.location.reload()
-                  
+                 
+                   navigate('/additem')
             })
             .catch(err=>{
                   toast.error(err.message)
@@ -38,76 +40,15 @@ const AddItem = () => {
 
    }
 
-   const logout =()=>{
-    window.localStorage.removeItem('token')
-    navigate('/login')
-}
+
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#"></a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarNav"
-          >
-            <ul className="navbar-nav ms-md-auto gap-2 ">
-              <li className="nav-item ">
-                <a className="nav-link " aria-current="page" href="/dashboad">
-                    Home
-                </a>
-              </li>
-              <li className="nav-item ">
-                <a className="nav-link " aria-current="page" href="/additem">
-                  Add Item
-                </a>
-              </li>
-              <li className="nav-item ">
-                <a className="nav-link " aria-current="page" href="/generatebill">
-                  Bill Generate
-                </a>
-              </li>
-              <li className="nav-item ">
-                <a className="nav-link " aria-current="page" href="/listitem">
-                  List of Item
-                </a>
-              </li>
-              <li className="nav-item ">
-                <a className="nav-link " aria-current="page" href="/report">
-                  Report
-                </a>
-              </li>
-              <li className="nav-item ">
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  aria-current="page"
-                  onClick={logout}
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <Navigation/>
       <div className="container w-50 mt-4 border" id="mobileform">
         <div className="row">
           <h4 className="row justify-content-center">Add Menu items</h4>
-          <div>
-
+          <form onSubmit={AddnewItem}>
           <div className="mb-3">
               <label htmlFor="exampleInputEmail1" className="form-label">
                 Menu Item ID
@@ -214,13 +155,13 @@ const AddItem = () => {
                 type="submit"
               className="btn btn-primary"
               style={{ width: 100, height: 50, fontSize: 18 }}
-              onClick={AddnewItem}
+              // onClick={AddnewItem}
             >
               Save
             </button>
           </div>
           
-          </div>
+          </form>
         </div>
         <br />
         <br />      </div>

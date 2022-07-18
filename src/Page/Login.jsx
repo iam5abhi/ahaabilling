@@ -1,19 +1,18 @@
 import React,{useState} from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 import BaseUrl from "../config/BaseUrl";
 import { Navigate } from "react-router-dom";
+import Navigation from "../component/Navbar";
+
 
 
 const Login =()=>{
-    const navigate =useNavigate()
+    const  navigate = useNavigate();
     const localStorage  =window.localStorage.getItem('token')
     const [userlogin,setuserlogin] =useState({email:'',password:''})
-    const datahandler =()=>{
-         navigate('/')
-    }
     const inputHandler =(event)=>{
         setuserlogin((preState)=>({
             ...preState,
@@ -38,9 +37,7 @@ const Login =()=>{
                    toast.success('login is sucessfully')
                    window.localStorage.setItem("token",res.data.token)
                    navigate('/dashboad')
-            }
-
-             
+            }  
          })
          .catch((err)=>{
             toast.error('invalid credential',{
@@ -56,26 +53,8 @@ const Login =()=>{
 
     return(
         <>
-   
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container-fluid">
-            <a className="navbar-brand" href="#"></a>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul className="navbar-nav ms-md-auto gap-2 ">
-                    
-                    <li className="nav-item ">
-                        
-                        <button type="button" className="btn btn-success" aria-current="page" onClick={datahandler} >Home</button>
-                    </li>
-            
-                </ul>
-            </div>
-        </div>
-    </nav>
+     
+    <Navigation/>
 
     {
          !localStorage ?(

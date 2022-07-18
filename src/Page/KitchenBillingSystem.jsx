@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import BaseUrl from "../config/BaseUrl";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Navigation from "../component/Navbar";
 
 const KitchenBillingSystem = () => {
   const navigate = useNavigate();
@@ -117,12 +118,6 @@ const KitchenBillingSystem = () => {
   };
 
 
-
-  const logout =()=>{
-    window.localStorage.removeItem('token')
-    navigate('/login')
-}
-
   const foodDataHandlre = (userBill, Id) => {
     fooodContainer.map((food) => {
       if (food.id === Id) {
@@ -169,15 +164,22 @@ const KitchenBillingSystem = () => {
     }));
   };
 
-  const dataSubmitHandler = () => {
-    axios.post(`${BaseUrl.url}/api/v2/bill/genrate`, userBill).then((res) => {
+  const dataSubmitHandler = (e) => {
+    e.preventDefault();
+    axios.post(`${BaseUrl.url}/api/v2/bill/genrate`, userBill)
+    .then((res) => {
+      console.log(res.data)
       toast.success("Bill Generate Sucessfully", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 500,
         theme: "colored",
       });
       navigate(`/bill/${res.data.data._id}`);
-    });
+    })
+    .catch((err)=>{
+      toast.error(err.message)
+    })
+    
   };
 
   useEffect(() => {
@@ -185,68 +187,10 @@ const KitchenBillingSystem = () => {
   }, [fooodContainer]);
   return (
     <>
-
-<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#"></a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarNav"
-          >
-            <ul className="navbar-nav ms-md-auto gap-2 ">
-              <li className="nav-item ">
-                <a className="nav-link " aria-current="page" href="/dashboad">
-                   Home
-                </a>
-              </li>
-              <li className="nav-item ">
-                <a className="nav-link " aria-current="page" href="/additem">
-                  Add Item
-                </a>
-              </li>
-              <li className="nav-item ">
-                <a className="nav-link " aria-current="page" href="/generatebill">
-                  Bill Generate
-                </a>
-              </li>
-              <li className="nav-item ">
-                <a className="nav-link " aria-current="page" href="/listitem">
-                  List of Item
-                </a>
-              </li>
-              <li className="nav-item ">
-                <a className="nav-link " aria-current="page" href="/report">
-                  Report
-                </a>
-              </li>
-              <li className="nav-item ">
-                <button
-                  type="button"
-                  className="btn btn-success"
-                  aria-current="page"
-                  onClick={logout}
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+<Navigation/>
       <br/>
 <div className="container border w-100" id="mobileform">
-  <form>
+  <form onSubmit={dataSubmitHandler}>
     <div className="row">
       <div className="col-md-6">
         <div className="form-group">
@@ -451,7 +395,7 @@ const KitchenBillingSystem = () => {
       <br />
       <div className="row">
         <div className="button text-center ">
-          <button type="submit" className="btn btn-success"  onClick={dataSubmitHandler}>Print</button>
+          <button type="submit" className="btn btn-success"  >Print</button>
         </div>
       </div>
     </div>
