@@ -64,6 +64,7 @@ const BillingReport =()=>{
       setreportdata(filteredArray)
       axios.delete(`${BaseUrl.url}/api/v2/delete/report/${id}`)
       .then(res => {
+        console.log(res)
         toast.success('delete data Sucessfully')
       })
       .catch(err => {
