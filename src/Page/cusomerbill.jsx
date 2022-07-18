@@ -109,7 +109,7 @@ const CusuomerBill = () => {
         </div>
       </nav>
   <br/>  <br/>  <br/>
-  <div className=" d-flex justify-content-end align-items-end">
+  <div className=" d-flex justify-content-center align-items-center mb-4">
   <button className="btn btn-success" onClick={handleToPrint}>Print</button>
 
   </div>

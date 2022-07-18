@@ -103,7 +103,7 @@ const AddItem = () => {
           </div>
         </div>
       </nav>
-      <div className="container w-50 border" id="mobileform">
+      <div className="container w-50 mt-4 border" id="mobileform">
         <div className="row">
           <h4 className="row justify-content-center">Add Menu items</h4>
           <div>
