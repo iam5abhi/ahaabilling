@@ -37,7 +37,6 @@ const KitchenBillingSystem = () => {
   });
 
 
-  console.log(userBill)
   const [netBillAmount, setnnetBillAmount] = useState();
   const handleAddFields = () => {
     setfooodContainer([
@@ -72,7 +71,6 @@ const KitchenBillingSystem = () => {
 
   const handleRemoveFields = (id) => {
     const value = [...fooodContainer];
-    console.log(value);
     const filteredArray = value.filter((data) => {
       return data.id !== id;
     });
@@ -88,7 +86,6 @@ const KitchenBillingSystem = () => {
     }));
   };
 
-  console.log(userBill.foods);
 
   const foodquantityHandler = (e) => {
     if (e.target.value) {
@@ -174,7 +171,6 @@ const KitchenBillingSystem = () => {
 
   const dataSubmitHandler = () => {
     axios.post(`${BaseUrl.url}/api/v2/bill/genrate`, userBill).then((res) => {
-      console.log(res.data.data);
       toast.success("Bill Generate Sucessfully", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 500,
@@ -275,8 +271,8 @@ const KitchenBillingSystem = () => {
       </div>
       <div className="col-md-6">
         <div className="form-group">
-          <label htmlFor="phone">Name</label>
-          <input type="tel" className="form-control" id="name" placeholder="Enter name" name="CustomerName"  onChange={(event)=>{ dataHandler(event)}} />
+          <label htmlFor="text">Name</label>
+          <input type="text" className="form-control" id="name" placeholder="Enter name" name="CustomerName"  onChange={(event)=>{ dataHandler(event)}} />
         </div>
       </div>
     </div>
@@ -306,8 +302,8 @@ const KitchenBillingSystem = () => {
       </div>
       <div className="col-md-6">
         <div className="form-group">
-          <label htmlFor="url">KOT</label>
-          <input type="url" className="form-control" id="KOT" placeholder="Kot Detail" name="kotdetails" onChange={(event)=>{ dataHandler(event)}}  />
+          <label htmlFor="KOT">KOT</label>
+          <input type="text" className="form-control" id="KOT" placeholder="Kot Detail" name="kotdetails" onChange={(event)=>{ dataHandler(event)}}  />
         </div>
       </div>
     </div>

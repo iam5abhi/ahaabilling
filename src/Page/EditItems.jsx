@@ -16,7 +16,6 @@ const EditItems = () => {
   const gettingFunction =()=>{
      axios.get(`${BaseUrl.url}/api/v1/lisOffood/${fid}`)
      .then((res)=>{
-          console.log(res.data.food)
           setfood(res.data.food)
           setmenuItem({MenuItemId:res.data.food.menuItemId,MenuName:res.data.food.menuName,Category:res.data.food.category,foodCategory:res.data.food.foodCategory,Rate:res.data.food.rate,ManualCode:res.data.ManualCode,serviceTax:res.data.food.serviceTax})
           setloading(false)
@@ -36,7 +35,6 @@ const EditItems = () => {
     gettingFunction()
   }, [fid]);
 
-  console.log(menuItem)
   const addItemHandler =(event)=>{
     const {name,value} =event.target
     setmenuItem((previousdata)=>({...previousdata,[name]:value}))

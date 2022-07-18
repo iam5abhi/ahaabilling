@@ -40,7 +40,6 @@ const ListItems  =()=>{
 
     const deletefoodiems =(id)=>{
         const filteredArray = menuItem.filter((data) => {
-            console.log(data);
             return data._id != id;
           });
       
@@ -57,12 +56,11 @@ const ListItems  =()=>{
     useEffect(() => {
         axios.get(`${BaseUrl.url}/api/v1/lisOffood`)
        .then((res)=>{
-           console.log(res.data)
            setmenuItem(res.data.food)
            setloading(false)
        })
        .catch(err=>{
-           console.log(err.message)
+           alert(err.message)
        })
     },[]);
 

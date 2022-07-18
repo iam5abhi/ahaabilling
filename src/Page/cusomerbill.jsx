@@ -1,10 +1,15 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import { useParams } from "react-router-dom";
 import BaseUrl from "../config/BaseUrl";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
+
 
 const CusuomerBill = () => {
     const {id} =useParams()
+    const navigate =useNavigate()
+    const componentRef = useRef();
     const [laoding,setloading] =useState(true)
     const[billingdata,setbillingdata] =useState()
 
@@ -19,7 +24,19 @@ const CusuomerBill = () => {
     })
 
   }  
-console.log(billingdata)
+
+  const handleToPrint =useReactToPrint({
+    content: () => componentRef.current,
+  });
+
+
+  const logout =()=>{
+    window.localStorage.removeItem('token')
+    navigate('/login')
+}
+
+
+
  useEffect(()=>{
     billgenreate()
  },[id])   
@@ -32,8 +49,71 @@ console.log(billingdata)
   }
 
   return (
-    <>
-      <div className="container">
+    <>  
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="#"></a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div
+            className="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <ul className="navbar-nav ms-md-auto gap-2 ">
+              <li className="nav-item ">
+                <a className="nav-link " aria-current="page" href="/dashboad">
+                  Home
+                </a>
+              </li>
+              <li className="nav-item ">
+                <a className="nav-link " aria-current="page" href="/additem">
+                  Add Item
+                </a>
+              </li>
+              <li className="nav-item ">
+                <a className="nav-link " aria-current="page" href="/generatebill">
+                  Bill Generate
+                </a>
+              </li>
+              <li className="nav-item ">
+                <a className="nav-link " aria-current="page" href="/listitem">
+                  List of Item
+                </a>
+              </li>
+              <li className="nav-item ">
+                <a className="nav-link " aria-current="page" href="/report">
+                  Report
+                </a>
+              </li>
+              <li className="nav-item ">
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  aria-current="page"
+                  onClick={logout}
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+  <br/>  <br/>  <br/>
+  <div className=" d-flex justify-content-end align-items-end">
+  <button className="btn btn-success" onClick={handleToPrint}>Print</button>
+
+  </div>
+      <div className="container" ref={componentRef}>
         <div className="card">
           <div className="card-body">
           <h5 className="text-center">Restaurant Bill</h5>

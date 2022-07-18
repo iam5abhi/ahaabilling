@@ -24,7 +24,6 @@ const AddItem = () => {
         axios
             .post(`${BaseUrl.url}/api/v1/addfood`,menuItem)
             .then(res=>{
-                console.log(res.data)
                    setdata(res.data.food)
                    toast.success(res.data.message,{
                     position: toast.POSITION.TOP_CENTER,
