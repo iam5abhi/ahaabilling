@@ -35,9 +35,12 @@ const CusuomerBill = () => {
 
 
 
+
  useEffect(()=>{
     billgenreate()
  },[id])   
+
+
 
  if(laoding){
     return(
@@ -60,7 +63,7 @@ const CusuomerBill = () => {
           <h5 className="text-center">Restaurant Bill</h5>
             <div className="row mb-4">
               <div className="col-sm-6 pt-3 w-60">
-                <h6 className="mb-3">Bill No:{billingdata._id}</h6>
+                <h6 className="mb-3">Bill No:{billingdata.KitchenBillNumber}</h6>
                 <div>
                   <h6 className="mb-3 w-20" >Date:{billingdata.Date}</h6>
                 </div>
@@ -73,11 +76,12 @@ const CusuomerBill = () => {
                 <div>Phone:{billingdata.CustomerMobileNumber}</div>    
               </div>
             </div>
+            <hr className="dashed" style={{borderTop: '2px dashed #000'}} />
+
             <div className="table-responsive-sm">
-              <table className="table table-striped">
+              <table className="table table-striped" >
                 <thead>
                   <tr>
-                    <th className="center">#</th>
                     <th>Item</th>
                     <th className="center">Qty</th>
                     <th className="right">Total</th>
@@ -88,10 +92,9 @@ const CusuomerBill = () => {
                      billingdata.foods.map((data,id)=>{
                         return(
                             <tr key={data._id}>
-                            <td className="center">{id+1}</td>
-                            <td className="left strong">{data.menuName}</td>
-                            <td className="center">{data.quantity}</td>
-                            <td className="right">{data.Amount}</td>
+                              <td className="left strong">{data.menuName}</td>
+                              <td className="center">{data.quantity}</td>
+                              <td className="right">{data.Amount}</td>
                           </tr>
                         )
                      })
@@ -106,39 +109,33 @@ const CusuomerBill = () => {
                   <tbody>
                     <tr>
                       <td className="left">
-                        <strong>Total</strong>
+                        <strong>SubTotal</strong>
                       </td>
                       <td className="right">{billingdata.TotalAmount}</td>
                     </tr>
 
                     <tr>
                       <td className="left">
-                        <strong>SGST</strong>
+                        <strong>Discount</strong>
                       </td>
-                      <td className="right">{billingdata.SGST}</td>
-                    </tr>
-                    <tr>
-                      <td className="left">
-                        <strong>CGST</strong>
-                      </td>
-                      <td className="right">{billingdata.CGST}</td>
+                      <td className="right">{billingdata.DiscountPrice}</td>
                     </tr>
 
                     <tr>
+                        <td className="left">
+                          <strong>Tax</strong>
+                        </td>
+                        <td className="right">{billingdata.SGST+billingdata.CGST}</td>
+                    </tr>
+                    <tr>
                       <td className="left">
-                        <strong>Room Service.Charge</strong>
+                        <strong>Room Charges</strong>
                       </td>
                       <td className="right">{billingdata.RoomServiceCharge}</td>
                     </tr>
                     <tr>
                       <td className="left">
-                        <strong>Net Discount</strong>
-                      </td>
-                      <td className="right">{billingdata.DiscountPrice}</td>
-                    </tr>
-                    <tr>
-                      <td className="left">
-                        <strong>Payable Discount</strong>
+                        <strong>Total</strong>
                       </td>
                       <td className="right">
                         <strong>{billingdata.FinalBillAmount}</strong>

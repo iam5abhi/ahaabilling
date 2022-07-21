@@ -16,9 +16,7 @@ const Navigation = () => {
       const logout =()=>{
         toast.success('logout successfuuly')
         window.localStorage.removeItem('token')
-        navigate('/login')
-       
-        
+        navigate('/login')    
     }
 
   return (

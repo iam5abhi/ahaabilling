@@ -26,19 +26,19 @@ const AddItem = () => {
         axios
             .post(`${BaseUrl.url}/api/v1/addfood`,menuItem)
             .then(res=>{
-                   setdata(res.data.food)
-                   toast.success(res.data.message,{
+                  setdata(res.data.food)
+                  toast.success(res.data.message,{
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: 8000
-                   })
-                 
-                   navigate('/additem')
+                  })
+                
+                  navigate('/additem')
             })
             .catch(err=>{
                   toast.error(err.message)
             })
 
-   }
+  }
 
 
 
@@ -128,15 +128,15 @@ const AddItem = () => {
                 onChange={addItemHandler}
               />
             </div>
-           <div className="mb-3">
+          <div className="mb-3">
               <label htmlFor="exampleInputPassword1" className="form-label">
                 GST %
               </label>
               <input
-                 type="text"
-                 className="form-control"
-                 name='serviceTax'
-                 onChange={addItemHandler}
+                type="text"
+                className="form-control"
+                name='serviceTax'
+                onChange={addItemHandler}
               />
             </div> 
             <div className="mb-3">
@@ -168,7 +168,7 @@ const AddItem = () => {
 <div>
     <br></br>
     <br></br>
-           <ListItems/>
+        <ListItems/>
       </div>
       <ToastContainer/>
     </>

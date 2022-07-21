@@ -86,7 +86,7 @@ const BillingReport =()=>{
         },
         {
             name:'Bill no',
-            selector: row => row._id,
+            selector: row => row.KitchenBillNumber,
         },
         {
             name:'Amount',
